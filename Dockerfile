@@ -10,13 +10,13 @@ ENV LICENSE_ALREADY_ACCEPTED=1
 RUN mkdir /workdir/project && \
     mkdir -p /tmp/install && \
 	apt update -y && apt upgrade -y && apt install -y --no-install-recommends \
-        apt-utils \
         wget \
         unzip \
         build-essential \
         cmake \
-        openjdk-11-jdk \
+        # openjdk-11-jdk \
         # cube dependencies
+        apt-utils \
         udev \
         libusb-1.0-0 \
         libusb-dev \
@@ -40,7 +40,7 @@ RUN unzip ${CUBE_IDE_INSTALLER_ZIP} && \
     ./${CUBE_IDE_INSTALLER_SH} --quiet && \
     # install every pacakge separately
     # ./${CUBE_IDE_INSTALLER} --quiet --noexec --keep --target cube_installer && \
-    # cd cube_installer && chown root:root *.deb && \
+    # cd cube_installer && \
     # apt install -y ./segger-jlink-udev-rules-*.deb ./st-stlink-udev-rules-*.deb ./st-stlink-server-*.deb ./st-stm32cubeide-*.deb
     cd && rm -rf /tmp/*
 
