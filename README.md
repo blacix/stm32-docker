@@ -1,17 +1,27 @@
-# download `en.st-stm32cubeide_1.12.0_14958_20230224_1824_amd64.deb_bundle.sh.zip` and copy next to thd Dockerfile
-## TODO download with docker
+# Docker for STM32CubeDE
 
-# cd stm32-docker repo
+## download STM32CubeDE for Ubuntu
+`en.st-stm32cubeide_1.12.0_14958_20230224_1824_amd64.deb_bundle.sh.zip`
 
-# build the image
+TODO download with docker
+
+
+## Build the image
 ```
 docker build -t stm32 .
 ```
 
-# cd project dir
+# 
 
-# import project to workspace
-# clean and build the workspace
+## Build the project
+```
+cd project dir
+```
+
+Import project to workspace.
+
+Clean and build the workspace
+
 ```
 docker run --rm -v ${PWD}:/workdir/project stm32 /bin/bash -c '\
     stm32cubeide -noSplash \
