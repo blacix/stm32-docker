@@ -14,7 +14,6 @@ RUN mkdir /workdir/project && \
         unzip \
         build-essential \
         cmake \
-        # openjdk-11-jdk \
         # cube dependencies
         apt-utils \
         udev \
