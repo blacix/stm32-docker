@@ -15,7 +15,7 @@ docker build -t stm32 .
 
 ## Build the project
 ```
-cd project dir
+cd <project dir>
 ```
 
 Import project to workspace.
