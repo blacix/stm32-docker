@@ -1,5 +1,5 @@
 # Base image which contains global dependencies
-FROM ubuntu:20.04 as base
+FROM ubuntu:22.04 as base
 WORKDIR /workdir
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,7 +13,12 @@ RUN mkdir /workdir/project && \
         wget \
         unzip \
         build-essential \
+        # stm32 + uavcan
         cmake \
+        ninja-build \
+        git \
+        python3 \
+        python3-pip \
         # cube dependencies
         apt-utils \
         udev \
@@ -23,7 +28,10 @@ RUN mkdir /workdir/project && \
         libpython2.7 \
         libncurses5 \
         && \
+    # uavcan
+    python3 -m pip install nunavut && \
     apt -y clean && apt -y autoremove && rm -rf /var/lib/apt/lists/*
+    
 
 
 ARG STM23_CUBE_IDE_VERSION=stm32cubeide_1.12.0

@@ -15,7 +15,7 @@ docker build -t stm32 .
 
 ## Build the project
 ```
-cd <project dir>
+cd <STM32CubeIDE project dir>
 ```
 
 Import project to workspace.
@@ -24,10 +24,10 @@ Clean and build the workspace
 
 ```
 docker run --rm -v ${PWD}:/workdir/project stm32 /bin/bash -c '\
-    stm32cubeide -noSplash \
-    -data /workdir/cube_ide_workspace  \
-    -application org.eclipse.cdt.managedbuilder.core.headlessbuild \
-    -import /workdir/project/* \
-    -build all \
-    -cleanBuild all'
+	cd STM32CubeIDE && \
+	stm32cubeide -noSplash \
+	-data /workdir/cube_ide_workspace  \
+	-application org.eclipse.cdt.managedbuilder.core.headlessbuild \
+	-import /workdir/project/STM32CubeIDE \
+	-build all'
 ```
