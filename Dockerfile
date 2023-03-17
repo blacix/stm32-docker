@@ -2,13 +2,13 @@
 FROM ubuntu:22.04 as base
 WORKDIR /workdir
 
-ARG USER_NAME=jenkins
-ARG USER_ID=1000
-ARG GROUP_ID=1000
+# ARG USER_NAME=jenkins
+# ARG USER_ID=1000
+# ARG GROUP_ID=1000
 
-# Create a new user with the desired UID and GID
-RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
+# # Create a new user with the desired UID and GID
+# RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
+#     useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ACCEPT_EULA=Y
@@ -63,8 +63,9 @@ ENV PATH="/opt/st/${STM23_CUBE_IDE_VERSION}:${PATH}"
 
 
 # workspace folder for cube ide
-RUN chown -R ${USER_NAME}:${USER_NAME} /workdir
-USER ${USER_NAME}:${USER_NAME}
-RUN mkdir /workdir/project && mkdir /workdir/cube_ide_workspace
+# RUN chown -R ${USER_NAME}:${USER_NAME} /workdir
+# USER ${USER_NAME}:${USER_NAME}
+RUN mkdir /workdir/project && mkdir /workdir/cube_ide_workspace && \
+    chmod a+rwx /workdir/*
 
 WORKDIR /workdir/project
