@@ -7,8 +7,10 @@ TODO download with docker
 
 
 ## Build the image
+The default UID:GID is 1000:1000.
+To build with adding the desired user, use:
 ```
-docker build -t stm32 .
+docker build --build-arg USER_ID=$(id -u <username>) --build-arg GROUP_ID=$(id -g <username>) -t stm32 .
 ```
 
 # 
@@ -23,7 +25,7 @@ Import project to workspace.
 Clean and build the workspace
 
 ```
-docker run --rm -v ${PWD}:/workdir/project stm32 /bin/bash -c '\
+docker run -u $(id -u):$(id -g) --rm -v ${PWD}:/workdir/project stm32 /bin/bash -c '\
 	cd STM32CubeIDE && \
 	stm32cubeide -noSplash \
 	-data /workdir/cube_ide_workspace  \
