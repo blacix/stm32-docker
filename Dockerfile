@@ -6,11 +6,11 @@ ARG USER_NAME=jenkins
 ARG USER_ID=0
 ARG GROUP_ID=0
 
-# Create a new user with the desired UID and GID
-RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
+# # Create a new user with the desired UID and GID
+# RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
+#     useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
 
-USER ${USER_NAME}:${USER_NAME}
+# USER ${USER_NAME}:${USER_NAME}
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ACCEPT_EULA=Y
