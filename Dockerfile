@@ -3,22 +3,19 @@ FROM ubuntu:22.04 as base
 WORKDIR /workdir
 
 ARG USER_NAME=jenkins
-ARG USER_ID=0
-ARG GROUP_ID=0
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
-# # Create a new user with the desired UID and GID
-# RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
-#     useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
-
-# USER ${USER_NAME}:${USER_NAME}
+# Create a new user with the desired UID and GID
+RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
+    useradd -u ${USER_ID} -g ${GROUP_ID} -ms /bin/bash ${USER_NAME}
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV ACCEPT_EULA=Y
 ENV LICENSE_ALREADY_ACCEPTED=1
 
 # System dependencies
-RUN mkdir /workdir/project && \
-    mkdir -p /tmp/install && \
+RUN mkdir -p /tmp/install && \
 	apt update -y && apt upgrade -y && apt install -y --no-install-recommends \
         wget \
         unzip \
@@ -61,10 +58,13 @@ RUN unzip ${CUBE_IDE_INSTALLER_ZIP} && \
     # apt install -y ./segger-jlink-udev-rules-*.deb ./st-stlink-udev-rules-*.deb ./st-stlink-server-*.deb ./st-stm32cubeide-*.deb
     cd && rm -rf /tmp/*
 
+# add Cube IDE to the path
+ENV PATH="/opt/st/${STM23_CUBE_IDE_VERSION}:${PATH}"
+
 
 # workspace folder for cube ide
-RUN mkdir /workdir/cube_ide_workspace
+RUN chown -R ${USER_NAME}:${USER_NAME} /workdir
+USER ${USER_NAME}:${USER_NAME}
+RUN mkdir /workdir/project && mkdir /workdir/cube_ide_workspace
 
 WORKDIR /workdir/project
-
-ENV PATH="/opt/st/${STM23_CUBE_IDE_VERSION}:${PATH}"
