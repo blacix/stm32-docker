@@ -19,6 +19,7 @@ ENV LICENSE_ALREADY_ACCEPTED=1
 RUN mkdir -p /tmp/install && \
 	apt update -y && apt upgrade -y && apt install -y --no-install-recommends \
         openssh-client \
+        git \
         wget \
         unzip \
         build-essential \
